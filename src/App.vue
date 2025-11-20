@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <v-main>
+      <router-view />
       <v-container class="text-center">
         <v-alert type="success" variant="tonal">
           Vuetify 3 + TypeScript is working! 🎉
