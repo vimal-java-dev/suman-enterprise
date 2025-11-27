@@ -3,12 +3,16 @@
   <v-app-bar elevation="2" dense app fixed>
     <v-container fluid>
       <v-row align="center" no-gutters class="w-100">
-
         <!-- Brand Logo (Left) -->
         <v-col cols="auto" class="d-flex align-center">
           <RouterLink to="/" class="d-flex align-center" style="text-decoration: none">
             <!-- Primary: native <img> for reliability -->
-            <img :src="logo" alt="Suman Enterprise Logo" class="navbar-logo mr-2" @error="onImgError" />
+            <img
+              :src="logo"
+              alt="Suman Enterprise Logo"
+              class="navbar-logo mr-2"
+              @error="onImgError"
+            />
             <!-- Fallback (kept for reference) -->
             <!-- <v-img :src="logo" alt="Suman Enterprise Logo" height="40" contain class="mr-2" /> -->
           </RouterLink>
@@ -27,7 +31,13 @@
           <RouterLink to="/compare" style="text-decoration: none">
             <v-btn text class="d-flex align-center">
               <span>Compare</span>
-              <v-badge v-if="compareCount > 0" :content="compareCount" overlap color="primary" class="ml-4" />
+              <v-badge
+                v-if="compareCount > 0"
+                :content="compareCount"
+                overlap
+                color="primary"
+                class="ml-4"
+              />
             </v-btn>
           </RouterLink>
         </v-col>
@@ -47,8 +57,6 @@ const compareCount = computed(() => productStore.compareList.length);
 
 function onImgError(ev: Event) {
   // show helpful diagnostics in the browser console
-  // eslint-disable-next-line no-console
-  console.error("Navbar logo failed to load.", { logo, target: ev?.target });
   // optionally replace with placeholder so UI isn't broken
   const img = ev?.target as HTMLImageElement | null;
   if (img) {

@@ -18,7 +18,7 @@
         <v-icon start>
           {{ isInCompare ? "mdi-checkbox-marked" : "mdi-checkbox-blank-outline" }}
         </v-icon>
-        {{ isInCompare ? "Remove" : "Compare" }}
+        {{ isInCompare ? "Remove" : "Select" }}
       </v-btn>
     </v-card-actions>
   </v-card>

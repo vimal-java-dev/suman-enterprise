@@ -1,27 +1,47 @@
 <!-- src/components/Pagination.vue -->
 <template>
   <nav aria-label="Pagination" class="flex items-center gap-2">
-    <button type="button" :disabled="currentPage === 1" @click="prevPage" class="px-3 py-1 rounded border"
+    <button
+      type="button"
+      :disabled="currentPage === 1"
+      @click="prevPage"
+      class="px-3 py-1 rounded border"
       :class="{ 'cursor-not-allowed opacity-60': currentPage === 1 }"
-      :style="currentPage === 1 ? { color: disabledColor } : { color: normalColor }" aria-label="Previous page">
+      :style="currentPage === 1 ? { color: disabledColor } : { color: normalColor }"
+      aria-label="Previous page"
+    >
       Prev
     </button>
 
     <template v-for="p in pagesToShow" :key="p.key">
-      <button v-if="p.type === 'page'" type="button" @click="onPageClick(p.value)" :class="[
-        'px-3 py-1 rounded border',
-        { 'font-semibold bg-gray-100': p.value === currentPage }
-      ]" :style="p.value === currentPage ? { color: activeColor } : { color: normalColor }"
-        :aria-current="p.value === currentPage ? 'page' : undefined">
+      <button
+        v-if="p.type === 'page'"
+        type="button"
+        @click="onPageClick(p.value)"
+        :class="[
+          'px-3 py-1 rounded border',
+          { 'font-semibold bg-gray-100': p.value === currentPage },
+        ]"
+        :style="p.value === currentPage ? { color: activeColor } : { color: normalColor }"
+        :aria-current="p.value === currentPage ? 'page' : undefined"
+      >
         {{ p.value }}
       </button>
 
       <span v-else class="px-2" :style="{ color: mutedColor }" aria-hidden="true">…</span>
     </template>
 
-    <button type="button" :disabled="currentPage === pageCount" @click="nextPage" class="px-3 py-1 rounded border"
+    <button
+      type="button"
+      :disabled="currentPage === pageCount"
+      @click="nextPage"
+      class="px-3 py-1 rounded border"
       :class="{ 'cursor-not-allowed opacity-60': currentPage === pageCount }"
-      :style="currentPage === pageCount ? { color: disabledColor } : { color: normalColor }" aria-label="Next page">
+      :style="
+        currentPage === pageCount ? { color: disabledColor } : { color: normalColor }
+      "
+      aria-label="Next page"
+    >
       Next
     </button>
   </nav>
@@ -32,6 +52,7 @@ import { defineComponent, computed } from "vue";
 import type { PropType } from "vue";
 
 export default defineComponent({
+  // eslint-disable-next-line vue/multi-word-component-names
   name: "Pagination",
   props: {
     totalItems: { type: Number, required: true },

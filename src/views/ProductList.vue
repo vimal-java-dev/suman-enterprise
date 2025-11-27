@@ -4,13 +4,27 @@
     <v-row class="mb-4" style="text-align: center">
       <v-col cols="12" md="6">
         <!-- Search is now global; clear button also updates store -->
-        <v-text-field v-model="ui.searchQuery" label="Search products" clearable @click:clear="ui.setSearch('')" />
-        <v-btn class="mt-2" text color="primary" @click="ui.setSearch('')">Reset Search</v-btn>
+        <v-text-field
+          v-model="ui.searchQuery"
+          label="Search products"
+          clearable
+          @click:clear="ui.setSearch('')"
+        />
+        <v-btn class="mt-2" text color="primary" @click="ui.setSearch('')"
+          >Reset Search</v-btn
+        >
       </v-col>
 
       <v-col cols="12" md="4">
-        <v-select v-model="categoryFilter" :items="categories" label="Filter by Category" clearable />
-        <v-btn class="mt-2" text color="primary" @click="categoryFilter = null">Reset Category Filter</v-btn>
+        <v-select
+          v-model="categoryFilter"
+          :items="categories"
+          label="Filter by Category"
+          clearable
+        />
+        <v-btn class="mt-2" text color="primary" @click="categoryFilter = null"
+          >Reset Category Filter</v-btn
+        >
       </v-col>
     </v-row>
 
@@ -48,6 +62,7 @@ const categories = computed(() => {
   return [...new Set(store.productList.map((p) => p.category))];
 });
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function matchesSearch(p: any, q: string | undefined) {
   const s = (q || "").trim().toLowerCase();
   if (!s) return true;

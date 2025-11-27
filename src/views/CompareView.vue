@@ -2,40 +2,51 @@
 <template>
   <v-container>
     <h2 class="mb-4" style="text-align: center">Compare Products</h2>
+    <h4 class="mb-4" style="text-align: center">
+      To clear all compare! <br />Just reload page.
+    </h4>
 
-    <v-row v-if="compareList.length" class="d-flex" dense>
-      <!-- Render one card per compared product -->
-      <v-col
-        v-for="product in compareList"
-        :key="product.id"
-        cols="12"
-        sm="6"
-        md="4"
-        lg="3"
-      >
-        <v-card class="mx-auto" elevation="2">
-          <v-img :src="product.image" height="140" contain />
+    <div v-if="compareList.length" class="d-flex" dense>
+      <v-row>
+        <!-- Render one card per compared product -->
+        <v-col
+          v-for="product in compareList"
+          :key="product.id"
+          cols="12"
+          sm="6"
+          md="4"
+          lg="3"
+        >
+          <v-card class="mx-auto" elevation="2">
+            <v-img :src="product.image" height="140" contain />
 
-          <v-card-text class="text-center">
-            <div class="text-h6 mb-2">{{ product.name }}</div>
-            <div class="text-subtitle-2 mb-3">{{ product.category }}</div>
-          </v-card-text>
+            <v-card-text class="text-center">
+              <div class="text-h6 mb-2">{{ product.name }}</div>
+              <div class="text-subtitle-2 mb-3">{{ product.category }}</div>
+            </v-card-text>
 
-          <v-card-actions class="justify-center pb-4">
-            <v-btn
-              color="error"
-              small
-              @click="remove(product.id)"
-              :aria-label="`Remove ${product.name} from comparison`"
-              title="Remove from compare"
-            >
-              Remove
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-    </v-row>
-
+            <v-card-actions class="justify-center pb-4">
+              <v-btn
+                color="error"
+                small
+                @click="remove(product.id)"
+                :aria-label="`Remove ${product.name} from comparison`"
+                title="Remove from compare"
+              >
+                Remove
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+          <RouterLink
+            to="/products"
+            style="text-decoration: none; padding: 16px; text-align: center"
+            class="d-block"
+          >
+            <v-btn color="primary"> View Products </v-btn>
+          </RouterLink>
+        </v-col>
+      </v-row>
+    </div>
     <div v-else class="text-center mt-10">
       <p>No products selected for comparison.</p>
       <v-btn color="primary" to="/products">Go to Product List</v-btn>
@@ -47,7 +58,9 @@
 import { useProductStore } from "@/stores/productStore";
 import { storeToRefs } from "pinia";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const store: any = useProductStore();
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const { compareList } = storeToRefs(store) as any;
 
 /**
@@ -63,8 +76,10 @@ function remove(id: string | number) {
 
   try {
     if (typeof store.$patch === "function") {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       store.$patch((state: any) => {
         if (Array.isArray(state.compareList)) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           state.compareList = state.compareList.filter((p: any) => p.id !== id);
         }
       });
@@ -72,18 +87,18 @@ function remove(id: string | number) {
     }
 
     if (Array.isArray(store.compareList)) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       store.compareList = store.compareList.filter((p: any) => p.id !== id);
       return;
     }
 
     // Development-time warning to surface why removal didn't work
-    // eslint-disable-next-line no-console
+
     console.warn(
       "Unable to remove product from compare list; no known remove method.",
       id
     );
   } catch (err) {
-    // eslint-disable-next-line no-console
     console.error("Error removing product from compare list:", err);
   }
 }
